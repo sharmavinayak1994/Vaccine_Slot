@@ -35,25 +35,28 @@ import javax.mail.internet.*;
 @Component
 public class FetchAvailability {
 
-	@Scheduled(cron = "0/20 * * * * ?")
+	@Scheduled(cron = "0/30 * * * * ?")
 	public void connectToCowin() throws IOException, NoSuchAlgorithmException {
 		System.out.println("STARTED!!");
 		HttpGet httpGet;
 		CloseableHttpClient httpClient = HttpClients.custom().setSslcontext(SSLContext.getDefault()).build();
 		try {
 			httpGet = new HttpGet("https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?");
-			URI uri = new URIBuilder(httpGet.getURI()).addParameter("district_id", "670")
+			URI uri = new URIBuilder(httpGet.getURI()).addParameter("district_id", "505")
 					.addParameter("date", "05-05-2021").build();
 
 			httpGet.setURI(uri);
 
-			httpGet.setHeader("Authorization",
-					"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiI0MmZlOTcwZi00MjQzLTQ2MzgtOTNiOC0zMDljOGRiZTIxY2YiLCJ1c2VyX2lkIjoiNDJmZTk3MGYtNDI0My00NjM4LTkzYjgtMzA5YzhkYmUyMWNmIiwidXNlcl90eXBlIjoiQkVORUZJQ0lBUlkiLCJtb2JpbGVfbnVtYmVyIjo5MTU5NjU0NDUxLCJiZW5lZmljaWFyeV9yZWZlcmVuY2VfaWQiOjc2NDk4MDEwOTY5MzIwLCJ1YSI6Ik1vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwLjE1OyBydjo4OC4wKSBHZWNrby8yMDEwMDEwMSBGaXJlZm94Lzg4LjAiLCJkYXRlX21vZGlmaWVkIjoiMjAyMS0wNS0wM1QxMjowMzoxNi4xODhaIiwiaWF0IjoxNjIwMDQzMzk2LCJleHAiOjE2MjAwNDQyOTZ9.xeqkS5wC7bTNMSE_9WqqgLBuVCCfWSS4sHFJyGVz4N8");
+			//httpGet.setHeader("Authorization",
+			//		"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiI0MmZlOTcwZi00MjQzLTQ2MzgtOTNiOC0zMDljOGRiZTIxY2YiLCJ1c2VyX2lkIjoiNDJmZTk3MGYtNDI0My00NjM4LTkzYjgtMzA5YzhkYmUyMWNmIiwidXNlcl90eXBlIjoiQkVORUZJQ0lBUlkiLCJtb2JpbGVfbnVtYmVyIjo5MTU5NjU0NDUxLCJiZW5lZmljaWFyeV9yZWZlcmVuY2VfaWQiOjc2NDk4MDEwOTY5MzIwLCJ1YSI6Ik1vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwLjE1OyBydjo4OC4wKSBHZWNrby8yMDEwMDEwMSBGaXJlZm94Lzg4LjAiLCJkYXRlX21vZGlmaWVkIjoiMjAyMS0wNS0wM1QxMjowMzoxNi4xODhaIiwiaWF0IjoxNjIwMDQzMzk2LCJleHAiOjE2MjAwNDQyOTZ9.xeqkS5wC7bTNMSE_9WqqgLBuVCCfWSS4sHFJyGVz4N8");
 			httpGet.setHeader("Host", "cdn-api.co-vin.in");
 			httpGet.setHeader("Origin", "https://selfregistration.cowin.gov.in");
 			httpGet.setHeader("Referer", "https://selfregistration.cowin.gov.in");
-			httpGet.setHeader("TE", "Trailers");
+			//httpGet.setHeader("TE", "Trailers");
 			httpGet.setHeader("Accept", "application/json");
+			//httpGet.setHeader("Accept-Encoding", "gzip, deflate, dr");
+			//httpGet.setHeader("Accept", "application/json");
+			//httpGet.setHeader("If-None-Match", "W/\"23735-t+EukXs7AuPw76qHfqAtSAvJlTE\"");
 
 			HttpResponse response = httpClient.execute(httpGet);
 			if (response.getStatusLine().getStatusCode() == 200) {
@@ -101,15 +104,16 @@ public class FetchAvailability {
 	void sendmail(String places) {
 		
 	      // email ID of Recipient.
-	      String recipient = "isharma.vinayak@gmail.com";
+	      String recipient = "nehal.singla23@gmail.com";
 	  
 	      // email ID of  Sender.
-	      String sender = "sharma.vinayak1994@gmail.com";
+	      String sender = "";  // use your email id and you would have to create app password for your email use this link for referral. 
+	      													// https://support.google.com/accounts/answer/185833?hl=en
 	      
 	      // using host as localhost
 	      String host = "smtp.gmail.com";
 	  
-	      String pass = "arpgrnnrqogtvkan";
+	      String pass = "";
 	      
 	      // Getting system properties
 	      Properties properties = System.getProperties();
@@ -142,6 +146,7 @@ public class FetchAvailability {
 	  
 	         // Set To Field: adding recipient's email to from field.
 	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+	         message.addRecipient(Message.RecipientType.CC, new InternetAddress("i.meenalgrover@gmail.com"));
 	  
 	         // Set Subject: subject of the email
 	         message.setSubject("!!!!VACCINE SLOT AVAILABLE!!!!!!");
