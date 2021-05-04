@@ -1,0 +1,26 @@
+package com.dsa.linear;
+
+import java.util.List;
+
+public class Informatica {
+	
+	
+	/* 
+	 * *
+	 * **
+	 * ***
+	 * ****
+	 * 
+	 * */
+
+	void printStars(int n, StringBuilder sb){
+				
+	}
+
+	
+	
+	public static void main(String[] args) {
+		
+	
+	}
+}

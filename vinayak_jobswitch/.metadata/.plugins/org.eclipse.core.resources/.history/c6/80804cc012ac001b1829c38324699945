@@ -1,0 +1,27 @@
+package com.vinayak.demo.utility;
+
+import java.io.*;
+import java.net.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+
+public class FetchAvailability {
+
+	void connectToCowin() {
+		
+		RestTemplate template = new RestTemplate();
+		URI url = new URIBuilder("https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?");
+		
+		ResponseEntity<String> response = template.getForEntity(url, String.class);
+		if(response.getStatusCode().equals(200)) {
+			
+		}else {
+			System.out.println("NAHI CHALA MUND AADMI");
+		}
+		System.out.println("found slot");
+		
+		
+	}
+	
+}

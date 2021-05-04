@@ -1,0 +1,50 @@
+package com.java.practice;
+
+public class WallMart {
+ // 1 2 3 4 5 6 7 8 9;
+
+	
+	
+}
+
+class PrintNumber {
+	
+	int counter;
+	int localCount = 0;
+	int print =0 ;
+	public void printNum1() throws InterruptedException {
+		synchronized(this) {
+			while(this.counter>0) {
+				while(localCount<0)
+					wait();
+				
+				System.out.println(print + " "+Thread.currentThread().getName());
+				
+			}
+		}
+		
+	}
+	
+	public void printNum2() {
+		synchronized(this) {
+			while(this.counter>0) {
+			
+			}
+		}		
+		
+	}
+
+	public void printNum3() {
+		synchronized(this) {
+			while(this.counter>0) {
+			
+			}
+		}
+	
+	}
+	
+	PrintNumber(int counter){
+		this.counter = counter;
+	}
+	
+}

@@ -1,0 +1,88 @@
+package com.dsa.linear;
+
+import java.util.List;
+
+public class Informatica {
+	
+	
+	/* 
+	 * *
+	 * **
+	 * ***
+	 * ****
+	 * 
+	 * */
+
+	void printStars(int n, StringBuilder sb){
+		
+		if(n==0)
+			return;
+		
+		sb.append("*");
+		System.out.println(sb.toString());
+		n--;
+		printStars(n , sb);
+		
+	}
+	
+	void printPossibleChange(List<Integer> list, int targetAmount) {
+		
+		for(Integer i : list) {
+			if(targetAmount%i == 0) {
+				for(int j=0;j< targetAmount/i ; j++) {
+					System.out.print(" "+ i);
+				}
+			}else {
+				
+				int tempTarget = targetAmount%i;
+				
+				
+				if(list.contains(targetAmount%i)){
+					System.out.println(i + " " +targetAmount%i);
+				}
+				
+			}
+		}
+		
+	}
+	
+	boolean check(int target , List<Integer> list) {
+		
+		for(Integer i: list) {
+			if(target%i == 0)
+				return true;
+		}  
+		return false;
+	}	
+	
+	public boolean checSorted(int[]arr, int i, int temp) {
+		
+		if(i==arr.length-1)
+			return true;
+		
+		if(temp>arr[i])
+			return false;
+		temp = arr[i];
+		i++;
+		return checSorted(arr, i, temp);
+	}
+	
+	public static void main(String[] args) {
+		
+		Informatica iif  = new Informatica();
+		//iif.printStars(4, new StringBuilder());
+		
+		//List<Integer> list = new ArrayList<Integer>();
+		//list.add(1);
+		//list.add(2);
+		//list.add(5);
+		
+		int arr[] = new int[] {1,2,3,4,5};	
+		
+		int temp = arr[0];
+		int i =1;
+		
+		System.out.println(iif.checSorted(arr, i, temp));
+		
+	}
+}

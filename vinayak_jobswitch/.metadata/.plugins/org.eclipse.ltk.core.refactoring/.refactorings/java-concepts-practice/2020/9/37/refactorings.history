@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;strList&apos; in &apos;com.java.practice.Main.processData(...)&apos; to &apos;array&apos;&#x0A;- Original project: &apos;java-concepts-practice&apos;&#x0A;- Original element: &apos;com.java.practice.Main.processData(List&lt;String&gt;).strList&apos;&#x0A;- Renamed element: &apos;strList&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;strList&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;com.java.practice{Main.java[Main~processData~QList\&lt;QString;&gt;;@strList!642!661!655!661!QList\&lt;QString;&gt;;!0!true" name="array" references="true" stamp="1599406499530" version="1.0"/>
+</session>

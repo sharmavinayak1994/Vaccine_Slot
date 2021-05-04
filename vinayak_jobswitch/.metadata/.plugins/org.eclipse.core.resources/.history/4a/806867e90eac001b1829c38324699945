@@ -1,0 +1,9 @@
+package com.vinayak.demo.utility;
+
+public class FetchAvailability {
+
+	Object connectToCowin() {
+		
+	}
+	
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.dsa.linear.DoubleLinkedlistCreateor&apos; to &apos;DoubleLinkedlistCreate&apos;&#x0A;- Original project: &apos;group-dsa-try&apos;&#x0A;- Original element: &apos;com.dsa.linear.DoubleLinkedlistCreateor&apos;&#x0A;- Renamed element: &apos;com.dsa.linear.DoubleLinkedlistCreate&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;DoubleLinkedlistCreateor&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;com.dsa.linear{DoubleLinkedlistCreateor.java[DoubleLinkedlistCreateor" matchStrategy="1" name="DoubleLinkedlistCreate" qualified="false" references="true" similarDeclarations="false" stamp="1595861174377" textual="false" version="1.0"/>
+</session>

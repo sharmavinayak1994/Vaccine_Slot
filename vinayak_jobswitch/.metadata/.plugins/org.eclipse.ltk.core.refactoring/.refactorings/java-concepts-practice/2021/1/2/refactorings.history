@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;com.java.practice.Baap.sum&apos; in &apos;com.java.practice.Baap&apos;&#x0A;- Original project: &apos;java-concepts-practice&apos;&#x0A;- Original element: &apos;com.java.practice.Baap.sum&apos;&#x0A;- Getter method name: &apos;getSum&apos;&#x0A;- Setter method name: &apos;setSum&apos;&#x0A;- Field visibility: &apos;public&apos;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;sum&apos;" flags="589830" getter="getSum" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;com.java.practice{Baap.java[Baap^sum" insertion="6" setter="setSum" stamp="1609958420234" version="1.0" visibility="1"/>
+</session>

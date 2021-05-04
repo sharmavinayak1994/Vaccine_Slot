@@ -1,0 +1,33 @@
+package com.dsa.linear;
+
+import java.util.List;
+
+public class Informatica {
+	
+	
+	/* 
+	 * 	 *
+	 *  * *
+       * * *
+	 * 
+	 * */
+
+	void printPyramid(int height) {
+		if(height == 0)
+			return;
+		print(height, new StringBuilder());
+	}
+
+	void print(int height, StringBuilder sb) {
+		if(height  == 0)
+			return;
+		System.out.println(sb.append("*"));
+		print(--height, sb);
+	}
+	
+	public static void main(String[] args) {
+		
+		Informatica inf = new Informatica();
+		inf.printPyramid(3);
+	}
+}

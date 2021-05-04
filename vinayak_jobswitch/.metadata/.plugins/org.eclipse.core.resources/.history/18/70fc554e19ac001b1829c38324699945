@@ -1,0 +1,52 @@
+package com.vinayak.demo.utility;
+
+import java.io.*;
+import java.net.*;
+
+import javax.net.ssl.SSLContext;
+
+import org.apache.http.*;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.springframework.stereotype.Component;
+
+@Component
+public class FetchAvailability {
+
+	void connectToCowin() {
+	try {	
+		CloseableHttpClient httpClient = HttpClients.custom().setSslcontext(SSLContext.getDefault()).build();	
+		
+		HttpGet httpGet = new HttpGet("https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?");
+		URI uri = new URIBuilder(httpGet.getURI()).addParameter("district_id", "670")
+		            .addParameter("date", "03-05-2021" )
+		            .build();
+		
+		httpGet.setURI(uri);
+		
+		httpGet.setHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiI0MmZlOTcwZi00MjQzLTQ2MzgtOTNiOC0zMDljOGRiZTIxY2YiLCJ1c2VyX2lkIjoiNDJmZTk3MGYtNDI0My00NjM4LTkzYjgtMzA5YzhkYmUyMWNmIiwidXNlcl90eXBlIjoiQkVORUZJQ0lBUlkiLCJtb2JpbGVfbnVtYmVyIjo5MTU5NjU0NDUxLCJiZW5lZmljaWFyeV9yZWZlcmVuY2VfaWQiOjc2NDk4MDEwOTY5MzIwLCJ1YSI6Ik1vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwLjE1OyBydjo4OC4wKSBHZWNrby8yMDEwMDEwMSBGaXJlZm94Lzg4LjAiLCJkYXRlX21vZGlmaWVkIjoiMjAyMS0wNS0wM1QxMjowMzoxNi4xODhaIiwiaWF0IjoxNjIwMDQzMzk2LCJleHAiOjE2MjAwNDQyOTZ9.xeqkS5wC7bTNMSE_9WqqgLBuVCCfWSS4sHFJyGVz4N8");
+		httpGet.setHeader("Host", "cdn-api.co-vin.in");
+		httpGet.setHeader("Origin", "https://selfregistration.cowin.gov.in");
+		httpGet.setHeader("Referer", "https://selfregistration.cowin.gov.in");
+		httpGet.setHeader("TE", "Trailers");
+		httpGet.setHeader("Accept", "application/json");
+		
+		HttpResponse response = httpClient.execute(httpGet);
+		if(response.getStatusLine().getStatusCode() == 200) {
+			System.out.println("!!!!Connect hua!!!!!!!");
+		}
+		
+		
+	}catch(Exception e) {
+		System.out.println("Stuff broke!");
+		System.out.println(e.getMessage());
+	}
+		
+		System.out.println("found slot");
+		
+		
+	}
+	
+}

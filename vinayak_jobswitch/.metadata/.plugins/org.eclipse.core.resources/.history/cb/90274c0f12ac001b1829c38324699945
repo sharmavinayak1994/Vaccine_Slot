@@ -1,0 +1,12 @@
+package com.vinayak.demo.utility;
+
+public class FetchAvailability {
+
+	void connectToCowin() {
+		
+		System.out.println("found slot");
+		
+		
+	}
+	
+}
