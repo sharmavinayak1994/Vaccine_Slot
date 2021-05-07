@@ -1,7 +1,7 @@
 package com.vinayak.demo.utility;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.URI;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,15 +9,22 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.net.ssl.SSLContext;
 
-import org.apache.http.*;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -27,33 +34,26 @@ import com.vinayak.demo.model.Center;
 import com.vinayak.demo.model.CowinResponse;
 import com.vinayak.demo.model.Session;
 
-import javax.mail.*;
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.internet.*;
-
-//@Configuration
 @EnableScheduling
 @Component
-public class FetchAvailability {
-
-	@Scheduled(cron = "0 0/2 * * * ?")
+public class FetchAvailability_Jaipur {
+	
+	@Scheduled(cron = "0/40 * * * * ?")
 	public void connectToCowin() throws IOException, NoSuchAlgorithmException {
-		System.out.println(System.currentTimeMillis()+  "STARTED LUCKNOW!!");
+		System.out.println(System.currentTimeMillis()+"STARTED J 1 !!");
 		HttpGet httpGet;
 		CloseableHttpClient httpClient = HttpClients.custom().setSslcontext(SSLContext.getDefault()).build();
-		Date date = new Date();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-		String strDate= formatter.format(date);
 		try {
+			Date date = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String strDate= formatter.format(date);
+			
 			httpGet = new HttpGet("https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?");
-			URI uri = new URIBuilder(httpGet.getURI()).addParameter("district_id", "670")
+			URI uri = new URIBuilder(httpGet.getURI()).addParameter("district_id", "505")
 					.addParameter("date", strDate).build();
 
 			httpGet.setURI(uri);
 
-			//httpGet.setHeader("Authorization",
-			//		"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiI0MmZlOTcwZi00MjQzLTQ2MzgtOTNiOC0zMDljOGRiZTIxY2YiLCJ1c2VyX2lkIjoiNDJmZTk3MGYtNDI0My00NjM4LTkzYjgtMzA5YzhkYmUyMWNmIiwidXNlcl90eXBlIjoiQkVORUZJQ0lBUlkiLCJtb2JpbGVfbnVtYmVyIjo5MTU5NjU0NDUxLCJiZW5lZmljaWFyeV9yZWZlcmVuY2VfaWQiOjc2NDk4MDEwOTY5MzIwLCJ1YSI6Ik1vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwLjE1OyBydjo4OC4wKSBHZWNrby8yMDEwMDEwMSBGaXJlZm94Lzg4LjAiLCJkYXRlX21vZGlmaWVkIjoiMjAyMS0wNS0wM1QxMjowMzoxNi4xODhaIiwiaWF0IjoxNjIwMDQzMzk2LCJleHAiOjE2MjAwNDQyOTZ9.xeqkS5wC7bTNMSE_9WqqgLBuVCCfWSS4sHFJyGVz4N8");
 			httpGet.setHeader("Host", "cdn-api.co-vin.in");
 			httpGet.setHeader("Origin", "https://selfregistration.cowin.gov.in");
 			httpGet.setHeader("Referer", "https://selfregistration.cowin.gov.in");
@@ -61,10 +61,10 @@ public class FetchAvailability {
 			httpGet.setHeader("Connection", "keep-alive");
 			httpGet.setHeader("Accept", "application/json");
 			httpGet.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36");
-
+			
 			HttpResponse response = httpClient.execute(httpGet);
 			if (response.getStatusLine().getStatusCode() == 200) {
-				System.out.println("!!!!Connect hua!!!!!!!");
+				System.out.println("!!!!Connect hua Jaipur 1!!!!!!!");
 				HttpEntity entity = response.getEntity();
 				String respString = EntityUtils.toString(entity, "UTF-8");
 				System.out.println("Response from Cowin :" + respString);
@@ -74,10 +74,10 @@ public class FetchAvailability {
 				Set<String> centers = new HashSet();
 				boolean flag=false;
 				for(Center c : cowin.getCenters()) {
-					if(c.getFeeType().equalsIgnoreCase("FREE"));
+					//if(c.getFeeType().equalsIgnoreCase("FREE"));
 					for(Session s : c.getSessions()) {
 						if(s.getMinAgeLimit() == 18 && s.getAvailableCapacity() >0) {
-							centers.add(c.getName()+s.getDate());
+							centers.add(c.getName()+" "+s.getDate());
 							System.out.println(c.getName());
 							System.out.println("Book now ASAP");
 							flag = true;
@@ -108,7 +108,7 @@ public class FetchAvailability {
 	void sendmail(String places) {
 		
 	      // email ID of Recipient.
-	      String recipient = "sakshitandon31095@gmail.com";
+	      String recipient = "nehal.singla23@gmail.com";
 	  
 	      // email ID of  Sender.
 	      String sender = "sharma.vinayak1994@gmail.com";  // use your email id and you would have to create app password for your email use this link for referral. 
@@ -150,7 +150,7 @@ public class FetchAvailability {
 	  
 	         // Set To Field: adding recipient's email to from field.
 	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-	         message.addRecipient(Message.RecipientType.TO, new InternetAddress("nimeshbhandari94@gmail.com"));
+	         message.addRecipient(Message.RecipientType.CC, new InternetAddress("i.meenalgrover@gmail.com"));
 	  
 	         // Set Subject: subject of the email
 	         message.setSubject("!!!!VACCINE SLOT AVAILABLE!!!!!!");
