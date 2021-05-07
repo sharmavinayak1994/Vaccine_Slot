@@ -112,13 +112,13 @@ public class FetchAvailability_Jaipur_II {
 	      String recipient = "nehal.singla23@gmail.com";
 	  
 	      // email ID of  Sender.
-	      String sender = "sharma.vinayak1994@gmail.com";  // use your email id and you would have to create app password for your email use this link for referral. 
+	      String sender = "";  // use your email id and you would have to create app password for your email use this link for referral. 
 	      													// https://support.google.com/accounts/answer/185833?hl=en
 	      
 	      // using host as localhost
 	      String host = "smtp.gmail.com";
 	  
-	      String pass = "arpgrnnrqogtvkan";
+	      String pass = ""; // add app password here
 	      
 	      // Getting system properties
 	      Properties properties = System.getProperties();
